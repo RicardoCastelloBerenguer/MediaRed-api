@@ -15,7 +15,7 @@ class UserController extends Controller
     public function loggedUser()
     {
         try {
-            $user = User::where('id', auth()->user()->id)->get();
+            $user = User::where('id', auth()->user()->id);
             return response()->json(new UsersCollection($user), 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
