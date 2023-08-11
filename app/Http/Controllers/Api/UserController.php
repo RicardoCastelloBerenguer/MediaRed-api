@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UsersCollection;
 use App\Models\User;
+use App\Services\FileService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -33,33 +34,55 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function updateUserImage(Request $request)
     {
-        //
+        $request->validate(['image' => 'required|mimes:png,jpg,jpeg']);
+        if ($request->height === '' || $request->width === '' || $request->top === '' || $request->left === '' || $request->rigth === '')
+            return response()->json(['error' => 'La imagen no esta completa'], 400);
+
+        try {
+            $user = (new FileService)->updateImage(auth()->user(), $request);
+            $user->save();
+            return response()->json(['success' => 'OK'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function getUser(string $id)
     {
-        //
-    }
+        try {
+            $user = User::FindOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+            return response()->json(['success' => 'OK', 'user' => $user], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateUser(Request $request)
     {
-        //
+        $request->validate(['name' => 'required']);
+
+        try {
+            $user = User::findOrFail(auth()->user()->id);
+
+            $user->name = $request->input('name');
+            $user->name = $request->input('bio');
+            $user->save();
+
+            return response()->json(['success' => 'OK'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     /**
