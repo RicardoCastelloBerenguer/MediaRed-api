@@ -43,7 +43,7 @@ class UserController extends Controller
         try {
             $user = (new FileService)->updateImage(auth()->user(), $request);
             $user->save();
-            return response()->json(['success' => 'OK'], 200);
+            return response()->json(['success' => $user], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
@@ -75,10 +75,10 @@ class UserController extends Controller
             $user = User::findOrFail(auth()->user()->id);
 
             $user->name = $request->input('name');
-            $user->name = $request->input('bio');
+            $user->bio = $request->input('bio');
             $user->save();
 
-            return response()->json(['success' => 'OK'], 200);
+            return response()->json(['success' => $request->input('bio')], 200);
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);

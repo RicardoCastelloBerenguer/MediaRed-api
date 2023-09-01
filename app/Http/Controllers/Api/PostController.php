@@ -17,7 +17,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'video' => 'required|mimes:mp4',
+            'video' => 'required|mimetypes:video/mp4,video/webm',
             'text' => 'required'
         ]);
 

@@ -23,7 +23,7 @@ class ProfileController extends Controller
 
             return response()->json([
                 'posts' => new AllPostsCollection($posts),
-                'users' => new UsersCollection($user)
+                'user' => new UsersCollection($user)
             ], 200);
 
         } catch (\Exception $e) {

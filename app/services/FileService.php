@@ -9,7 +9,7 @@ use Request;
 
 class FileService
 {
-    public function updateImage(User $model, $request)
+    public function updateImage($model, $request)
     {
         $image = \Intervention\Image\Facades\Image::make($request->file('image'));
 
@@ -24,7 +24,9 @@ class FileService
         $extension = $file->getClientOriginalExtension();
         $image->crop($request->width, $request->height, $request->left, $request->top);
         $name = time() . '.' . $extension;
-        $image->save(public_path() . '/files' . $name);
+        $image->save(public_path() . '/files/' . $name);
+
+        $model->image = '/files/' . $name;
 
         return $model;
     }
