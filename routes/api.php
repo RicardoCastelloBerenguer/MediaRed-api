@@ -22,9 +22,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/get-random-users', [GlobalController::class, 'getRandomUsers']);
-Route::get('/home', [HomeController::class, 'index']);
-Route::get('/get-random-users', [GlobalController::class, 'getRandomUsers']);
+// Route::get('/get-random-users', [GlobalController::class, 'getRandomUsers']);
+// Route::get('/home', [HomeController::class, 'index']);
+
+
+Route::get('get-random-users', [GlobalController::class, 'getRandomUsers']);
+Route::get('api/home', [HomeController::class, 'index']);
+
+
+// Route::get('/get-random-users', [GlobalController::class, 'getRandomUsers']);
+// Route::get('/home', [HomeController::class, 'index']);
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
