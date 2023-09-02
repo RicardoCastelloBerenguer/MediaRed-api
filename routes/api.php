@@ -27,8 +27,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('get-random-users', [GlobalController::class, 'getRandomUsers']);
-Route::get('api/home', [HomeController::class, 'index']);
-
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/profile/{id}', [ProfileController::class, 'show']);
 
 // Route::get('/get-random-users', [GlobalController::class, 'getRandomUsers']);
 // Route::get('/home', [HomeController::class, 'index']);
@@ -50,7 +50,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //PROFILE ENDPOINTS
 
-    Route::get('/profile/{id}', [ProfileController::class, 'show']);
 
     //COMMENTS ENDPOINTS
 
@@ -60,5 +59,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //LIKES ENDPOINTS
 
     Route::post('/likes', [LikeController::class, 'store']);
-    Route::post('/likes/{id}', [LikeController::class, 'show']);
+    Route::delete('/likes/{id}', [LikeController::class, 'show']);
 });

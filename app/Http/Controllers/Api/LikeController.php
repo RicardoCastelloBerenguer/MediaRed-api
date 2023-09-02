@@ -83,8 +83,25 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Like $like)
+    public function destroy(string $id)
     {
-        //
+        try {
+            $like = Like::find($id);
+
+            if (count(collect($like)) > 0) {
+                $like->delete();
+            }
+
+            return response()->json([
+                'like' => [
+                    'id' => $like->id,
+                    'post_id' => $like->post_id,
+                    'user_id' => $like->user_id
+                ],
+                'success' => 'OK'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 }
