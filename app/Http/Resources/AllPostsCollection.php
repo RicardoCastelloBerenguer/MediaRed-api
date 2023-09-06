@@ -23,7 +23,7 @@ class AllPostsCollection extends ResourceCollection
                 'comments' => $post->comments->map(function ($comment) {
                     return [
                         'id' => $comment->id,
-                        'text' => $comment->user->name,
+                        'text' => $comment->text,
                         'user' => [
                             'id' => $comment->user->id,
                             'name' => $comment->user->name,

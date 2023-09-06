@@ -46,7 +46,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/posts/{id}', [PostController::class, 'show']);
     Route::post('/posts', [PostController::class, 'store']);
-    Route::patch('/posts/{id}', [PostController::class, 'destroy']);
+    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
 
     //PROFILE ENDPOINTS
 
