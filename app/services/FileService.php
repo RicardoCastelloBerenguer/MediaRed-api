@@ -17,7 +17,7 @@ class FileService
 
             $currentImage = public_path() . $model->image;
 
-            if (file_exists($currentImage) && $currentImage != public_path() . '/user.placeholder.png')
+            if (file_exists($currentImage) && $currentImage != public_path() . '/user-placeholder.png')
                 unlink($currentImage);
         }
         $file = $request->file('image');
